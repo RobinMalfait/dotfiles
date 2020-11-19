@@ -1,0 +1,2 @@
+undodir/*
+!undodir/.gitignore

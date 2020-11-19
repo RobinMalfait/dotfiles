@@ -1,0 +1,47 @@
+{
+  "diagnostic.virtualText": true,
+  "diagnostic.messageTarget": "echo",
+  "diagnostic.errorSign": "✖",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "•",
+  "diagnostic.hintSign": "•",
+
+  "tailwindCSS.headwind.runOnSave": false,
+  "tailwindCSS.emmetCompletions": true,
+
+  "intelephense.diagnostics.enable": false,
+  "intelephense.format.enable": false,
+  "intelephense.telemetry.enabled": false,
+
+  "prettier.formatterPriority": 1,
+
+  "prettier.printWidth": 120,
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "rust",
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "javascriptreact"
+  ],
+
+  "prettier.requireConfig": true,
+  "prettier.eslintIntegration": false,
+
+  "eslint.autoFixOnSave": true,
+
+  "languageserver": {
+    "intelephense": {
+      "command": "intelephense",
+      "args": ["--stdio"],
+      "filetypes": ["php"],
+      "initializationOptions": {
+        "storagePath": "/tmp/intelephense"
+      }
+    }
+  }
+}

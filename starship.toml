@@ -1,0 +1,13 @@
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+[directory]
+disabled = false
+truncation_length = 8
+truncate_to_repo = false
+
+[directory.substitutions]
+"~/github.com/" = "github.com/"
+
+[cmd_duration]
+min_time = 20
