@@ -17,6 +17,7 @@ Plug 'vim-test/vim-test'
 Plug 'benmills/vimux'
 Plug 'vim-airline/vim-airline'
 Plug 'arcticicestudio/nord-vim'
+Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
