@@ -16,8 +16,9 @@ font:
     style: Regular
   italic:
     family: Dank Mono
-    style: Italic
-  size: 16.0
+    style: Regular
+  # size: 22.0 # Streaming
+  size: 18.0 # Normal
 
 # Nord
 colors:
