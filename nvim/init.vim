@@ -4,6 +4,9 @@
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
@@ -17,9 +20,11 @@ Plug 'vim-test/vim-test'
 Plug 'benmills/vimux'
 Plug 'vim-airline/vim-airline'
 Plug 'arcticicestudio/nord-vim'
+Plug 'ayu-theme/ayu-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'kana/vim-textobj-user' | Plug 'whatyouhide/vim-textobj-xmlattr'
 call plug#end()
 
 let mapleader = " "
@@ -83,7 +88,13 @@ nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 vnoremap <leader>p "_dP
 
 " Theming/Styling
+" let ayucolor="light"
+" colorscheme ayu
 colorscheme nord
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 let g:airline_powerline_fonts = 1
 
 " Allow for transparent background
@@ -98,6 +109,12 @@ autocmd BufNewFile,BufRead .zalias   set syntax=zsh
 let $FZF_DEFAULT_COMMAND='rg --files'
 let $FZF_DEFAULT_OPTS='--reverse'
 let g:fzf_layout = { 'window': {'width': 0.8, 'height': 0.8} }
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Switch between last 2 buffers
 nnoremap <leader><leader> :b#<CR>
@@ -153,7 +170,7 @@ nmap <leader>gf :diffget //2<CR>
 nmap <leader>gs :G<CR>
 
 " Testing
-let test#strategy = "neovim" " vimux
+let test#strategy = "vimux" " neovim
 let g:test#javascript#runner = 'jest'
 nmap <silent> tn :TestNearest<CR>
 nmap <silent> tf :TestFile<CR>
