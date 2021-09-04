@@ -11,3 +11,6 @@ truncate_to_repo = false
 
 [cmd_duration]
 min_time = 20
+
+[nodejs]
+format = "via [$version](bold green) "

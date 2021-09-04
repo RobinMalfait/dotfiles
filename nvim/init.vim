@@ -1,14 +1,12 @@
 "==============================================================
-" Vim Cofiguration
+" Vim Configuration
 "==============================================================
 
 call plug#begin('~/.config/nvim/plugged')
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-" Plug 'nvim-lua/popup.nvim'
-" Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'antoinemadec/coc-fzf'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdtree'
@@ -22,9 +20,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'arcticicestudio/nord-vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-highlightedyank'
-" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'kana/vim-textobj-user' | Plug 'whatyouhide/vim-textobj-xmlattr'
 call plug#end()
 
@@ -35,10 +33,12 @@ filetype plugin indent on
 
 set autoindent
 set clipboard=unnamed
+set shortmess=a
 set cmdheight=2
 set expandtab
 set hidden
 set incsearch
+set ignorecase
 set nobackup
 set noerrorbells
 set nohlsearch
@@ -50,12 +50,13 @@ set nowritebackup
 set number
 set relativenumber
 set shiftwidth=2
-set shortmess+=c
+" set shortmess+=c
 set signcolumn=yes:2
 set smartcase
 set smartindent
 set softtabstop=2
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+set laststatus=0
 set tabstop=2
 set termguicolors
 set undodir=~/.config/nvim/undodir
@@ -89,8 +90,9 @@ nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 vnoremap <leader>p "_dP
 
 " Theming/Styling
-let ayucolor="light"
+" let ayucolor="light"
 " colorscheme ayu
+" set background=light
 colorscheme nord
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
@@ -108,17 +110,17 @@ autocmd BufNewFile,BufRead .zalias   set syntax=zsh
 " Project Navigation 
 "==============================================================
 let $FZF_DEFAULT_COMMAND='rg --files'
-let $FZF_DEFAULT_OPTS='--reverse'
+let $FZF_DEFAULT_OPTS='--reverse --bind ctrl-a:select-all'
 let g:fzf_layout = { 'window': {'width': 0.8, 'height': 0.8} }
 
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Switch between last 2 buffers
 nnoremap <leader><leader> :b#<CR>
+
+" Presentation mode
+nmap <F5> :set relativenumber! number! showmode! showcmd! hidden! ruler!<CR>
+noremap <Left> :silent bp<CR> :redraw!<CR>
+noremap <Right> :silent bn<CR> :redraw!<CR>
 
 " Find in files
 nnoremap <C-f> :Rg<CR>
@@ -134,6 +136,17 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+
+" Keeping it centered
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+
+" Undo breakpoints
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
 
 " Navigation
 nnoremap <leader>h :wincmd h<CR>
@@ -173,6 +186,7 @@ nmap <leader>gs :G<CR>
 " Testing
 let test#strategy = "vimux" " neovim
 let g:test#javascript#runner = 'jest'
+let g:test#echo_command = 0
 nmap <silent> tn :TestNearest<CR>
 nmap <silent> tf :TestFile<CR>
 nmap <silent> ts :TestSuite<CR>
@@ -196,6 +210,18 @@ nnoremap <leader>ne :NERDTreeToggle<CR>
 
 " Prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+" CoC FZF
+let g:coc_fzf_preview = ''
+let g:coc_fzf_opts = []
+
+nnoremap <silent> <space>a       :<C-u>CocFzfList diagnostics<CR>
+nnoremap <silent> <space>b       :<C-u>CocFzfList diagnostics --current-buf<CR>
+nnoremap <silent> <space>c       :<C-u>CocFzfList commands<CR>
+nnoremap <silent> <space>e       :<C-u>CocFzfList extensions<CR>
+nnoremap <silent> <space>o       :<C-u>CocFzfList outline<CR>
+nnoremap <silent> <space>s       :<C-u>CocFzfList symbols<CR>
+nnoremap <silent> <space>p       :<C-u>CocFzfListResume<CR>
 
 " CoC 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -265,13 +291,13 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions.
+" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands.
+" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document.
+" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols.
+" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 
