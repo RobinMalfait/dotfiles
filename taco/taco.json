@@ -1,0 +1,46 @@
+{
+  "projects": {
+    "/Users/robin/github.com/tailwindlabs/tailwindcss": {
+      "watch": "bun run swcify --watch",
+      "build": "bun run swcify"
+    },
+    "/Users/robin/github.com/tailwindlabs/headlessui": {
+      "vue": "yarn workspace @headlessui/vue",
+      "react": "yarn workspace @headlessui/react"
+    },
+    "/Users/robin/github.com/RobinMalfait/rosa/rosa-dashboard": {
+      "build": "next build",
+      "format": "bun run format",
+      "dev": "next dev --port 1209"
+    },
+    "/Users/robin/github.com/RobinMalfait/invoice.space": {
+      "dev": "next dev --port 1234"
+    },
+    "/Users/robin/github.com": {
+      "test": "./node_modules/.bin/jest",
+      "tdd": "./node_modules/.bin/jest --watch"
+    },
+    "/Users/robin": {
+      "test": "./node_modules/.bin/jest"
+    },
+    "/Users/robin/github.com/RobinMalfait/advent-of-code-2021": {
+      "test": "NODE_OPTIONS=--experimental-vm-modules jest src",
+      "bench": "node ./bench.js",
+      "format": "prettier **/* --write --ignore-unknown",
+      "tdd": "NODE_OPTIONS=--experimental-vm-modules jest src --watch",
+      "setup": "node ./setup.js"
+    },
+    "/Users/robin/github.com/tailwindlabs": {
+      "dev": "next dev"
+    },
+    "/Users/robin/github.com/RobinMalfait/taco": {
+      "watch": "watchexec --clear --restart --debounce 0 -- cargo run --quiet",
+      "run": "cargo run --quiet",
+      "start": "watchexec --clear --restart --debounce 0 -- cargo build --release",
+      "build": "cargo build --release"
+    },
+    "/Users/robin/github.com/RobinMalfait": {
+      "dev": "next dev"
+    }
+  }
+}
