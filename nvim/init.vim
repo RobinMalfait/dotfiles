@@ -11,7 +11,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
-" Plug 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-surround'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'vim-test/vim-test'
@@ -24,6 +24,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'kana/vim-textobj-user' | Plug 'whatyouhide/vim-textobj-xmlattr'
+Plug 'jbyuki/venn.nvim'
+Plug 'github/copilot.vim'
+Plug 'jxnblk/vim-mdx-js'
 call plug#end()
 
 let mapleader = " "
@@ -33,7 +36,7 @@ filetype plugin indent on
 
 set autoindent
 set clipboard=unnamed
-set shortmess=a
+set shortmess+=c
 set cmdheight=2
 set expandtab
 set hidden
@@ -62,6 +65,7 @@ set termguicolors
 set undodir=~/.config/nvim/undodir
 set undofile
 set updatetime=50
+set noautochdir
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 if exists('+termguicolors')
@@ -84,10 +88,12 @@ noremap <right> <nop>
 nnoremap ; :
 
 " Unfuck my screen
-nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
+nnoremap U :syntax sync fromstart<cr>:redraw!<cr>:edit!<cr>
 
 " Delete in the void register and paste original value
 vnoremap <leader>p "_dP
+" Delete in the void reigster
+vnoremap <leader>d "_d
 
 " Theming/Styling
 " let ayucolor="light"
@@ -110,7 +116,7 @@ autocmd BufNewFile,BufRead .zalias   set syntax=zsh
 " Project Navigation 
 "==============================================================
 let $FZF_DEFAULT_COMMAND='rg --files'
-let $FZF_DEFAULT_OPTS='--reverse --bind ctrl-a:select-all'
+let $FZF_DEFAULT_OPTS='--reverse'
 let g:fzf_layout = { 'window': {'width': 0.8, 'height': 0.8} }
 
 

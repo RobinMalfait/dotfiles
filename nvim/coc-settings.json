@@ -29,6 +29,9 @@
     "javascriptreact"
   ],
 
+
+  "rust.clippy_preference": "on",
+
   "prettier.requireConfig": true,
   "prettier.eslintIntegration": false,
 
