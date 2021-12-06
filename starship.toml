@@ -10,7 +10,7 @@ truncate_to_repo = false
 "~/github.com/" = "github.com/"
 
 [cmd_duration]
-min_time = 20
+min_time = 1
 
 [nodejs]
 format = "via [$version](bold green) "
