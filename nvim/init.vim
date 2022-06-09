@@ -95,11 +95,15 @@ vnoremap <leader>p "_dP
 " Delete in the void reigster
 vnoremap <leader>d "_d
 
-" Theming/Styling
-" let ayucolor="light"
-" colorscheme ayu
-" set background=light
-colorscheme nord
+" Dynamic themeing
+let color_path = expand('~/.config/nvim/colors/theme.vim')
+if filereadable(color_path)
+  execute 'source'.color_path
+else
+  " Default color scheme
+  colorscheme Nord
+endif
+
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
