@@ -8,6 +8,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'antoinemadec/coc-fzf'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-abolish'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
