@@ -20,20 +20,23 @@
   "prettier.singleQuote": true,
   "prettier.trailingComma": "es5",
 
+  "vetur.ignoreProjectWarning": true,
+
+  "rust-analyzer.updates.prompt": false,
+
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
     "rust",
     "javascript",
     "typescript",
     "typescriptreact",
-    "javascriptreact"
+    "javascriptreact",
+    "vue"
   ],
-
 
   "rust.clippy_preference": "on",
 
   "prettier.requireConfig": true,
-  "prettier.eslintIntegration": false,
 
   "eslint.autoFixOnSave": true,
 
