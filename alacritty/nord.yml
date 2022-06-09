@@ -1,25 +1,3 @@
-env:
-  TERM: xterm-256color
-window:
-  decorations: full
-  title: "👨‍💻"
-  dynamic_title: false
-  padding:
-    x: 6
-    y: 6
-  opacity: 1
-scrolling:
-  history: 100000
-  multiplier: 3
-font:
-  normal:
-    family: Dank Mono
-    style: Regular
-  italic:
-    family: Dank Mono
-    style: Regular
-  size: 20.0
-
 # Nord
 colors:
   primary:
