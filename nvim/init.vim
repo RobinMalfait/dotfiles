@@ -21,13 +21,18 @@ Plug 'vim-airline/vim-airline'
 Plug 'arcticicestudio/nord-vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'kana/vim-textobj-user' | Plug 'whatyouhide/vim-textobj-xmlattr'
 Plug 'jbyuki/venn.nvim'
 Plug 'github/copilot.vim'
-Plug 'jxnblk/vim-mdx-js'
+Plug 'romgrk/github-light.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'overcache/NeoSolarized'
+source ~/.config/nvim/colors/inspired-github.vim
+" Plug 'jxnblk/vim-mdx-js'
+" Plug 'findango/vim-mdx'
 call plug#end()
 
 let mapleader = " "
@@ -67,6 +72,8 @@ set undodir=~/.config/nvim/undodir
 set undofile
 set updatetime=50
 set noautochdir
+set textwidth=100
+set fo+=t
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 if exists('+termguicolors')
@@ -129,7 +136,7 @@ let g:fzf_layout = { 'window': {'width': 0.8, 'height': 0.8} }
 nnoremap <leader><leader> :b#<CR>
 
 " Presentation mode
-nmap <F5> :set relativenumber! number! showmode! showcmd! hidden! ruler!<CR>
+" nmap <F5> :set relativenumber! number! showmode! showcmd! hidden! ruler!<CR>
 noremap <Left> :silent bp<CR> :redraw!<CR>
 noremap <Right> :silent bn<CR> :redraw!<CR>
 
@@ -178,6 +185,9 @@ vnoremap K :m '<-2<CR>gv=gv
 " Yank highlighter
 let g:highlightedyank_highlight_duration = 100
 
+" Rust
+noremap <C-i><C-h> :CocCommand rust-analyzer.toggleInlayHints<CR>
+
 " Tab navigate completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -190,6 +200,7 @@ tnoremap jk <C-\><C-N>
 
 " Git
 nmap <leader>g :Git<SPACE>
+" nmap <leader>gr :Gvdiffsplit!<CR>
 nmap <leader>gj :diffget //3<CR>
 nmap <leader>gf :diffget //2<CR>
 nmap <leader>gs :G<CR>
@@ -217,6 +228,7 @@ vmap <C-\> <Plug>NERDCommenterToggle<CR>gv
 " Nerdtree
 let g:NERDTreeShowHidden=1
 let g:NERDTreeWinPos = "right"
+nnoremap <leader>st :NERDTreeFind<CR>
 nnoremap <leader>ne :NERDTreeToggle<CR>
 
 " Prettier
