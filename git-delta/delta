@@ -1,0 +1,7 @@
+[delta]
+	navigate = true
+  features = side-by-side line-numbers decorations
+	; features = line-numbers decorations
+	file-style = bold yellow ul
+[delta]
+  syntax-theme = Nord
