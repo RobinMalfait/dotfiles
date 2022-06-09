@@ -1,3 +1,27 @@
-node_modules
+# DO NOT LEAK CREDENTIALS SHEESH
 .env
+
+# Folders
+Autodesk/
+broot/
+configstore/
+gatsby/
+github-copilot/
+htop/
+iterm2/
+karabiner/
+neofetch/
+node_modules/
+op/
+osstats/
+psysh/
+raycast/
+tabtab/
+taco/
+yarn/
+
+# Nested files & folders
 nvim/undodir/*
+
+# Files
+package-lock.json
