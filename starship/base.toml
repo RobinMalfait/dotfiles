@@ -14,3 +14,4 @@ min_time = 1
 
 [nodejs]
 format = "via [$version](bold green) "
+

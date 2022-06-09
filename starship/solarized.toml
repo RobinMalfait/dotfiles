@@ -1,0 +1,12 @@
+[custom.currenttime]
+command = 'date +"%H:%M"'
+when = "true"
+style = "#0369a1"
+format = "at [$symbol($output)]($style) "
+
+[custom.osstats]
+command = "osstats terminal"
+when = """ [[ "$PWD" == ~/github.com* ]] """
+style = "#0369a1"
+format = "~ [$output]($style) "
+
