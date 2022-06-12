@@ -9,17 +9,16 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'antoinemadec/coc-fzf'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-surround'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'vim-test/vim-test'
 Plug 'benmills/vimux'
-Plug 'vim-airline/vim-airline'
 Plug 'arcticicestudio/nord-vim'
-Plug 'ayu-theme/ayu-vim'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-highlightedyank'
@@ -27,12 +26,7 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'kana/vim-textobj-user' | Plug 'whatyouhide/vim-textobj-xmlattr'
 Plug 'jbyuki/venn.nvim'
 Plug 'github/copilot.vim'
-Plug 'romgrk/github-light.vim'
-Plug 'altercation/vim-colors-solarized'
 Plug 'overcache/NeoSolarized'
-source ~/.config/nvim/colors/inspired-github.vim
-" Plug 'jxnblk/vim-mdx-js'
-" Plug 'findango/vim-mdx'
 call plug#end()
 
 let mapleader = " "
@@ -40,6 +34,7 @@ let mapleader = " "
 syntax on
 filetype plugin indent on
 
+set encoding=utf-8
 set autoindent
 set clipboard=unnamed
 set shortmess+=c
@@ -59,15 +54,12 @@ set nowritebackup
 set number
 set relativenumber
 set shiftwidth=2
-" set shortmess+=c
 set signcolumn=yes:2
 set smartcase
 set smartindent
 set softtabstop=2
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 set laststatus=0
 set tabstop=2
-set termguicolors
 set undodir=~/.config/nvim/undodir
 set undofile
 set updatetime=50
@@ -100,6 +92,7 @@ nnoremap U :syntax sync fromstart<cr>:redraw!<cr>:edit!<cr>
 
 " Delete in the void register and paste original value
 vnoremap <leader>p "_dP
+
 " Delete in the void reigster
 vnoremap <leader>d "_d
 
@@ -126,19 +119,12 @@ hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
 autocmd BufNewFile,BufRead .zalias   set syntax=zsh
 
 " Project Navigation 
-"==============================================================
 let $FZF_DEFAULT_COMMAND='rg --files'
 let $FZF_DEFAULT_OPTS='--reverse'
 let g:fzf_layout = { 'window': {'width': 0.8, 'height': 0.8} }
 
-
 " Switch between last 2 buffers
 nnoremap <leader><leader> :b#<CR>
-
-" Presentation mode
-" nmap <F5> :set relativenumber! number! showmode! showcmd! hidden! ruler!<CR>
-noremap <Left> :silent bp<CR> :redraw!<CR>
-noremap <Right> :silent bn<CR> :redraw!<CR>
 
 " Find in files
 nnoremap <C-f> :Rg<CR>
@@ -200,7 +186,7 @@ tnoremap jk <C-\><C-N>
 
 " Git
 nmap <leader>g :Git<SPACE>
-" nmap <leader>gr :Gvdiffsplit!<CR>
+nmap <leader>gr :Gvdiffsplit!<CR>
 nmap <leader>gj :diffget //3<CR>
 nmap <leader>gf :diffget //2<CR>
 nmap <leader>gs :G<CR>
@@ -232,7 +218,7 @@ nnoremap <leader>st :NERDTreeFind<CR>
 nnoremap <leader>ne :NERDTreeToggle<CR>
 
 " Prettier
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+command! -nargs=0 Prettier :!npx prettier --write %
 
 " CoC FZF
 let g:coc_fzf_preview = ''
@@ -311,16 +297,4 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Mappings for CoCList
-" Show all diagnostics.
-" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" " Manage extensions.
-" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" " Show commands.
-" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" " Find symbol of current document.
-" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" " Search workspace symbols.
-" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 

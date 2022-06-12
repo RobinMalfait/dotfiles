@@ -11,7 +11,7 @@
     "coc-phpls": ">=2.2.2",
     "coc-prettier": ">=9.3.0",
     "coc-rls": ">=1.1.6",
-    "coc-rust-analyzer": ">=0.62.1",
+    "coc-rust-analyzer": ">=0.63.0",
     "coc-sh": ">=0.6.1",
     "coc-sql": ">=0.10.4",
     "coc-svg": ">=0.0.13",
