@@ -5,9 +5,8 @@
   "diagnostic.warningSign": "⚠",
   "diagnostic.infoSign": "•",
   "diagnostic.hintSign": "•",
-
-  "tailwindCSS.headwind.runOnSave": false,
-  "tailwindCSS.emmetCompletions": true,
+  "diagnostic.messageDelay": 200,
+  "diagnostic.messageLevel": "error",
 
   "intelephense.diagnostics.enable": false,
   "intelephense.format.enable": false,
@@ -23,22 +22,33 @@
   "vetur.ignoreProjectWarning": true,
 
   "rust-analyzer.updates.prompt": false,
+  "rust-analyzer.inlayHints.typeHints.enable": true,
+  "rust-analyzer.inlayHints.renderColons": true,
+  // "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+  "rust-analyzer.inlayHints.chainingHints.enable": true,
+  "rust-analyzer.inlayHints.closingBraceHints.enable": true,
+  // "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "always",
+  // "rust-analyzer.inlayHints.parameterHints.enable": true,
+  // "rust-analyzer.inlayHints.reborrowHints.enable": "always",
+  // "rust-analyzer.inlayHints.typeHints.hideClosureInitialization": true,
+  "rust-analyzer.checkOnSave.command": "clippy",
 
-  "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "rust",
-    "javascript",
-    "typescript",
-    "typescriptreact",
-    "javascriptreact",
-    "vue"
-  ],
+  "coc.preferences.formatOnSave": true,
+  // "coc.preferences.formatOnSave": [
+  //   "css",
+  //   "rust",
+  //   "javascript",
+  //   "typescript",
+  //   "typescriptreact",
+  //   "javascriptreact",
+  //   "vue"
+  // ],
 
-  "rust.clippy_preference": "on",
 
   "prettier.requireConfig": true,
 
-  "eslint.autoFixOnSave": true,
+  "eslint.autoFixOnSave": false,
+  "eslint.format.enable": true,
 
   "languageserver": {
     "intelephense": {

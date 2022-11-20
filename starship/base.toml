@@ -7,6 +7,7 @@ truncation_length = 8
 truncate_to_repo = false
 
 [directory.substitutions]
+"~/github.com/tailwindlabs/" = ""
 "~/github.com/" = "github.com/"
 
 [cmd_duration]

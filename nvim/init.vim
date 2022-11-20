@@ -10,11 +10,11 @@ Plug 'antoinemadec/coc-fzf'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
-Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'vim-test/vim-test'
 Plug 'benmills/vimux'
 Plug 'arcticicestudio/nord-vim'
@@ -28,6 +28,7 @@ Plug 'whatyouhide/vim-textobj-xmlattr'
 Plug 'jbyuki/venn.nvim'
 Plug 'github/copilot.vim'
 Plug 'overcache/NeoSolarized'
+Plug 'imsnif/kdl.vim'
 call plug#end()
 
 let mapleader = " "
@@ -38,8 +39,8 @@ filetype plugin indent on
 set encoding=utf-8
 set autoindent
 set clipboard=unnamed
-set shortmess+=c
-set cmdheight=2
+set shortmess=atc
+set cmdheight=3
 set expandtab
 set hidden
 set incsearch
@@ -53,7 +54,7 @@ set noswapfile
 set nowrap
 set nowritebackup
 set number
-set relativenumber
+" set relativenumber
 set shiftwidth=2
 set signcolumn=yes:2
 set smartcase
@@ -68,16 +69,16 @@ set noautochdir
 set textwidth=100
 set fo+=t
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" if exists('+termguicolors')
+"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"   set termguicolors
+" endif
 
 " Neovim config
-nnoremap <leader>rc :vsp ~/.config/nvim/init.vim<CR>
-nnoremap <leader><CR> :source ~/.config/nvim/init.vim<CR>
+nnoremap <leader>rc :vsp $MYVIMRC<CR>
+nnoremap <leader><CR> :source $MYVIMRC<CR>
 
 " Remove arrow keys
 noremap <up> <nop>
@@ -112,12 +113,16 @@ let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_powerline_fonts = 1
 
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#coc#show_coc_status = 1
+
 " Allow for transparent background
 hi Normal ctermbg=NONE guibg=NONE 
 hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
 
-" Mark files to use the zsh syntax
+" Configure file types for certain files 
 autocmd BufNewFile,BufRead .zalias   set syntax=zsh
+autocmd BufNewFile,BufRead *.njk     setfiletype html
 
 " Project Navigation 
 let $FZF_DEFAULT_COMMAND='rg --files'
@@ -173,12 +178,17 @@ vnoremap K :m '<-2<CR>gv=gv
 let g:highlightedyank_highlight_duration = 100
 
 " Rust
-noremap <C-i><C-h> :CocCommand rust-analyzer.toggleInlayHints<CR>
+" noremap <C-i><C-h> :CocCommand rust-analyzer.toggleInlayHints<CR>
 
 " Tab navigate completion
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              " \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Integrated terminal
 nnoremap <leader>t :below new +term<CR> :resize 20<CR> i
@@ -187,10 +197,10 @@ tnoremap jk <C-\><C-N>
 
 " Git
 nmap <leader>g :Git<SPACE>
-nmap <leader>gr :Gvdiffsplit!<CR>
-nmap <leader>gj :diffget //3<CR>
-nmap <leader>gf :diffget //2<CR>
-nmap <leader>gs :G<CR>
+" nmap <leader>gr :Gvdiffsplit!<CR>
+" nmap <leader>gj :diffget //3<CR>
+" nmap <leader>gf :diffget //2<CR>
+" nmap <leader>gs :G<CR>
 
 " Testing
 let test#strategy = "vimux" " neovim
@@ -207,6 +217,9 @@ let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
+let g:NERDCustomDelimiters={
+	\ 'typescriptreact': { 'left': '//', 'right': '', 'leftAlt': '{/*', 'rightAlt': '*/}' },
+\}
 
 " Use ctrl+\ to toggle comments
 nmap <C-\> <Plug>NERDCommenterToggle
@@ -238,10 +251,15 @@ nnoremap <silent> <space>p       :<C-u>CocFzfListResume<CR>
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent><expr> <C-j>
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<C-j>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <expr><C-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-k>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -255,9 +273,9 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -272,15 +290,22 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   elseif (coc#rpc#ready())
+"     call CocActionAsync('doHover')
+"   else
+"     execute '!' . &keywordprg . " " . expand('<cword>')
+"   endif
+" endfunction
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
@@ -298,4 +323,22 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
+" Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
 
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline=""
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
