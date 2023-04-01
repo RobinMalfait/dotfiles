@@ -1,4 +1,7 @@
 {
+    "theme": "One Dark",
     "vim_mode": true,
-    "theme": "one-dark"
+    "format_on_save": "language_server",
+    "buffer_font_family": "BerkeleyMono Nerd Font",
+    "buffer_font_size": 18
 }
