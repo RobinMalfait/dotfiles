@@ -1,0 +1,5 @@
+# Also search "hidden" files, typically dotfiles
+# --hidden
+
+# Allow my `tmp` related files
+# --glob=*tmp*
