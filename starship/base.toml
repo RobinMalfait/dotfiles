@@ -1,18 +1,74 @@
+format = """
+$jobs\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$git_metrics\
+$fill\
+$memory_usage\
+$nodejs\
+$rust\
+$python\
+$php\
+$custom\
+$cmd_duration $time\
+$line_break\
+$battery\
+$character"""
+
 # Don't print a new line at the start of the prompt
 add_newline = false
 
 [directory]
 disabled = false
-truncation_length = 8
+style = "blue"
+read_only = " "
+truncation_length = 4
 truncate_to_repo = false
 
 [directory.substitutions]
 "~/github.com/tailwindlabs/" = ""
 "~/github.com/" = "github.com/"
 
+[nodejs]
+format = "[$symbol($version )]($style)"
+
+[rust]
+symbol = " "
+format = "[$symbol($version )]($style)"
+
+[fill]
+symbol = " "
+
+[character]
+success_symbol = "[❯](purple)"
+error_symbol = "[❯](red)"
+vicmd_symbol = "[❮](green)"
+
+[git_branch]
+symbol = " "
+# format = "[$symbol$branch]($style) "
+style = "#94a3b8"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "cyan"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
+
+[git_metrics]
+disabled = false
+
 [cmd_duration]
 min_time = 1
+format = "[$duration]($style)"
+style = "yellow"
 
-[nodejs]
-format = "via [$version](bold green) "
+[memory_usage]
+symbol = " "
 
