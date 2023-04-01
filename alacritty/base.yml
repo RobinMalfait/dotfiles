@@ -13,10 +13,13 @@ scrolling:
   multiplier: 3
 font:
   normal:
-    family: Dank Mono
+    family: "BerkeleyMono Nerd Font"
     style: Regular
   italic:
-    family: Dank Mono
+    family: "BerkeleyMono Nerd Font"
     style: Italic
-  size: 20.0
+  bold:
+    family: "BerkeleyMono Nerd Font"
+    style: Bold
+  size: 22.0
 
