@@ -15,6 +15,7 @@ Plug 'preservim/nerdcommenter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'nvim-treesitter/playground'
 Plug 'vim-test/vim-test'
 Plug 'benmills/vimux'
 Plug 'arcticicestudio/nord-vim'
@@ -29,6 +30,12 @@ Plug 'jbyuki/venn.nvim'
 Plug 'github/copilot.vim'
 Plug 'overcache/NeoSolarized'
 Plug 'imsnif/kdl.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'eandrju/cellular-automaton.nvim'
+Plug 'RyanMillerC/better-vim-tmux-resizer'
+Plug 'folke/zen-mode.nvim'
+Plug 'mbbill/undotree'
 call plug#end()
 
 let mapleader = " "
@@ -54,7 +61,7 @@ set noswapfile
 set nowrap
 set nowritebackup
 set number
-" set relativenumber
+set relativenumber
 set shiftwidth=2
 set signcolumn=yes:2
 set smartcase
@@ -79,6 +86,9 @@ set fo+=t
 " Neovim config
 nnoremap <leader>rc :vsp $MYVIMRC<CR>
 nnoremap <leader><CR> :source $MYVIMRC<CR>
+
+" Undotree
+nnoremap <leader>u :UndotreeToggle<CR>
 
 " Remove arrow keys
 noremap <up> <nop>
@@ -117,20 +127,31 @@ let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#coc#show_coc_status = 1
 
 " Allow for transparent background
-hi Normal ctermbg=NONE guibg=NONE 
+hi Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
 
-" Configure file types for certain files 
+" InlayHint styles
+hi default CocInlayHint ctermfg=8 guifg=#4c566a guibg=NONE ctermbg=NONE
+
+" Configure file types for certain files
 autocmd BufNewFile,BufRead .zalias   set syntax=zsh
 autocmd BufNewFile,BufRead *.njk     setfiletype html
 
-" Project Navigation 
+" Project Navigation
 let $FZF_DEFAULT_COMMAND='rg --files'
 let $FZF_DEFAULT_OPTS='--reverse'
 let g:fzf_layout = { 'window': {'width': 0.8, 'height': 0.8} }
+" let g:fzf_action = {
+"   \ 'ctrl-t': 'tab split',
+"   \ 'ctrl-x': 'split',
+"   \ 'ctrl-v': 'vsplit',
+"   \ 'ctrl-q': 'fill_quickfix'}
 
 " Switch between last 2 buffers
 nnoremap <leader><leader> :b#<CR>
+
+" When I want a fun break...
+nnoremap <leader>fml :CellularAutomaton make_it_rain<CR>
 
 " Find in files
 nnoremap <C-f> :Rg<CR>
@@ -146,6 +167,33 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+
+
+" Zen Mode
+" lua <<EOF
+"   require("zen-mode").setup {
+"     window = {
+"       backdrop = 1, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+"       -- height and width can be:
+"       -- * an absolute number of cells when > 1
+"       -- * a percentage of the width / height of the editor when <= 1
+"       -- * a function that returns the width or the height
+"       width = 80, -- width of the Zen window
+"       height = 1, -- height of the Zen window
+"       -- by default, no options are changed for the Zen window
+"       -- uncomment any of the options below, or add other vim.wo options you want to apply
+"       options = {
+"         signcolumn = "no", -- disable signcolumn
+"         number = false, -- disable number column
+"         relativenumber = false, -- disable relative numbers
+"         cursorline = false, -- disable cursorline
+"         cursorcolumn = false, -- disable cursor column
+"         -- foldcolumn = "0", -- disable fold column
+"         -- list = false, -- disable whitespace characters
+"       },
+"     },
+"   }
+" EOF
 
 " Keeping it centered
 nnoremap n nzzzv
@@ -212,13 +260,17 @@ nmap <silent> ts :TestSuite<CR>
 nmap <silent> tl :TestLast<CR>
 nmap <silent> tg :TestVisit<CR>
 
+" Markdown Preview
+let g:mkdp_theme = 'light'
+nmap <C-s> <Plug>MarkdownPreview
+
 " Nerdcommenter
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDCustomDelimiters={
-	\ 'typescriptreact': { 'left': '//', 'right': '', 'leftAlt': '{/*', 'rightAlt': '*/}' },
+  \ 'typescriptreact': { 'left': '//', 'right': '', 'leftAlt': '{/*', 'rightAlt': '*/}' },
 \}
 
 " Use ctrl+\ to toggle comments
@@ -246,7 +298,7 @@ nnoremap <silent> <space>o       :<C-u>CocFzfList outline<CR>
 nnoremap <silent> <space>s       :<C-u>CocFzfList symbols<CR>
 nnoremap <silent> <space>p       :<C-u>CocFzfListResume<CR>
 
-" CoC 
+" CoC
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.

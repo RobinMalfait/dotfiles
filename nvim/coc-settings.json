@@ -33,7 +33,16 @@
   // "rust-analyzer.inlayHints.typeHints.hideClosureInitialization": true,
   "rust-analyzer.checkOnSave.command": "clippy",
 
+  // "typescript.inlayHints.variableTypes.enabled": true,
+  // "typescript.inlayHints.parameterNames.enabled": "all",
+  // "typescript.inlayHints.parameterTypes.enabled": true,
+  // "typescript.inlayHints.enumMemberValues.enabled": true,
+  // "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  // "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "inlayHint.enable": true,
+
   "coc.preferences.formatOnSave": true,
+  "coc.preferences.useQuickfixForLocations": true,
   // "coc.preferences.formatOnSave": [
   //   "css",
   //   "rust",
