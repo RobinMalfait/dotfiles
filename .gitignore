@@ -25,3 +25,4 @@ nvim/undodir/*
 
 # Files
 package-lock.json
+README.private.md
